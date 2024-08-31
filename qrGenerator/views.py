@@ -8,7 +8,7 @@ from qrGenerator.forms import QRCodeForm
 
 class QRCodeView(View):
     form_class = QRCodeForm
-    template_name = 'qr_code.html'
+    template_name = 'qr/qr_code.html'
 
     def get(self, request):
         form = self.form_class()

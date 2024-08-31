@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate QR Code</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-md mx-auto bg-white p-8 border border-gray-300 shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Generate QR Code</h2>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="url" class="block text-sm font-medium text-gray-700">URL</label>
+                <input type="url" name="url" id="url" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+            </div>
+            <div>
+                <label for="box_size" class="block text-sm font-medium text-gray-700">Box Size</label>
+                <input type="number" name="box_size" id="box_size" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+            </div>
+            <div>
+                <label for="border_size" class="block text-sm font-medium text-gray-700">Border Size</label>
+                <input type="number" name="border_size" id="border_size" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Generate</button>
+            </div>
+        </form>
+        {% if qr_code %}
+        <div class="mt-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-800">Generated QR Code</h3>
+            <img src="{{ MEDIA_URL }}{{ qr_code }}" alt="Generated QR Code" class="mt-4 mx-auto">
+            <p class="text-gray-600 mt-2">Saved to your Downloads folder.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
